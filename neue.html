@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<title>JavaScript</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+background-color: #f0f0f5;
+color: #333;
+line-height: 1.6;
+text-align: center;
+}
+
+.Liste {
+text-align: center;
+font-size: 80px;
+}
+</style>
+
+<script>
+// Funktion, um eine Aufgabe hinzuzufügen
+function einfügenAufgabe() {
+var neueAufgabe = document.createElement("div");
+neueAufgabe.innerHTML = document.getElementById("Feld").value;
+document.getElementById("Liste").appendChild(neueAufgabe);
+
+// Ereignislistener hinzufügen, um Aufgabe zu entfernen
+neueAufgabe.onclick = entfernenAufgabe;
+}
+
+// Funktion, um eine Aufgabe zu entfernen
+function entfernenAufgabe() {
+document.getElementById("Liste").removeChild(this);
+}
+
+// Funktion, um eine Aufgabe zu speichern
+function speichern() {
+var neueAufgabe = document.getElementById("Feld").value;
+localStorage.setItem("Feld", neueAufgabe); // Aufgabe im localStorage speichern
+}
+
+// Funktion, um gespeicherte Aufgaben zu laden
+function laden() {
+var gespeicherteListe = document.getElementById("gespeicherteListe");
+var gespeicherteAufgabe = localStorage.getItem("Feld");
+
+if (gespeicherteAufgabe) {
+gespeicherteListe.innerHTML = gespeicherteAufgabe; // Speichern angezeigt
+} else {
+gespeicherteListe.innerHTML = "Keine gespeicherten Aufgaben."; // Wenn nichts gespeichert ist
+}
+}
+</script>
+
+</head>
+<body>
+
+<div>Aufgabenliste</div>
+<br/>
+<input type="text" id="Feld" value=""/>
+<br/>
+<input type="button" value="Einfügen" onclick="einfügenAufgabe();"/>
+<br/>
+<input type="button" value="Speichern" onclick="speichern();"/> <!-- Der Speichern-Button -->
+<br/>
+<input type="button" id="Laden" value="Laden" onclick="laden();"/>
+<br/>
+
+<!-- Der Bereich, in dem Aufgaben angezeigt werden -->
+<div id="Liste">Aufgaben:</div>
+<br/>
+
+<!-- Der Bereich, in dem gespeicherte Aufgaben angezeigt werden -->
+<div id="gespeicherteListe"></div>
+
+</body>
+</html>
